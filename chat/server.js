@@ -11,7 +11,7 @@ const io = socketIO(server);
 
 const PORT = 8000;
 
-server.listen(PORT || 3003);
+server.listen(PORT);
 
 app.use(cors())
 app.use(express.static(path.join(__dirname, 'public')));
@@ -19,6 +19,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.get('/chat-api', async(req, res) => {
     try {
         const { data } = await axios('http://localhost:3000/api/users')
+        console.log(data)
         return res.json(data);
     } catch (error) {
         console.error(error)

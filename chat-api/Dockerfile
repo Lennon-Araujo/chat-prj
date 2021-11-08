@@ -1,9 +1,15 @@
-FROM node:14-alpine
+FROM node:14.16.1-alpine
 
-RUN apk add --no-cache bash
+USER root
 
-RUN npm install -g @nestjs/cli@8.0.0
+WORKDIR /usr/chat-api/app
 
-USER node
+RUN apk update && apk add --no-cache -q bash
 
-WORKDIR /home/node/app
+COPY package*.json ./
+
+RUN npm install --silent
+
+COPY . .
+
+EXPOSE 3000

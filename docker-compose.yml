@@ -2,15 +2,18 @@ version: '3.3'
 
 services:
   postgres:
+    container_name: postgres-db
     image: postgres:13
     environment:
       - POSTGRES_DB=db_chat
       - POSTGRES_USER=admin
       - POSTGRES_PASSWORD=postgres
     ports:
-      - '5432:5432'
+      - 5432:5432
     volumes:
       - ./chat-api/postgres_data:/var/lib/postgresql
+    networks:
+      - chat-prj
 
   # pgadmin:
   #   image: dpage/pgadmin4
@@ -19,26 +22,38 @@ services:
   #     - PGADMIN_DEFAULT_EMAIL=teste@teste.com.br
   #     - PGADMIN_DEFAULT_PASSWORD=1234
   #   ports:
-  #     - '9000:80'
+  #     - '9000:80'context
   #   depends_on:
   #     - postgres
+
+  chat-api:
+    container_name: chat-api
+    entrypoint: sh ./.docker/entrypoint.sh
+    tty: true
+    build:
+      context: ./chat-api
+    volumes:
+      - ./chat-api:/usr/chat-api/app
+    ports:
+      - 3000:3000
+    depends_on:
+      - postgres
+    networks:
+      - chat-prj
 
   chat:
     container_name: chat
     entrypoint: sh ./.docker/entrypoint.sh
+    tty: true
     build:
       context: ./chat
     volumes:
-      - ./chat:/usr/chat/app
+      - ./chat/:/usr/chat/app
     ports:
       - 8000:8000
+    networks:
+      - chat-prj
 
-  # chat-api:
-  #   container_name: chat-api
-  #   entrypoint: sh ./.docker/entrypoint.sh
-  #   build:
-  #     context: ./chat-api
-  #   volumes:
-  #     - ./chat-api:/usr/chat-api/app
-  #   ports:
-  #     - 10000:10000
+networks:
+  chat-prj:
+    driver: bridge
