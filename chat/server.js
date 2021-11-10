@@ -11,12 +11,16 @@ const io = socketIO(server);
 
 const PORT = 8000;
 
-server.listen(PORT);
+server.listen(PORT)
 
 app.use(cors())
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.get('/chat-api', async(req, res) => {
+// app.get('/login', (req, res) => {
+//     res.render('login.html')
+// })
+
+app.get('/chat-api', async (req, res) => {
     try {
         const { data } = await axios('http://localhost:3000/api/users')
         console.log(data)
@@ -33,8 +37,8 @@ io.on('connection', (socket) => {
 
     socket.on('join-request', (username) => {
         socket.username = username;
-        connectedUsers.push( username );
-        console.log( connectedUsers );
+        connectedUsers.push(username);
+        console.log(connectedUsers);
 
         socket.emit('user-ok', connectedUsers);
         socket.broadcast.emit('list-update', {
