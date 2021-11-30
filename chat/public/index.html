@@ -4,14 +4,18 @@
 <head>
     <title>Chat</title>
     <meta charset="utf-8" />
-    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="./assets/css/style.css" />
 </head>
 
 <body>
     <div class="container">
         <div class="page" id="loginPage">
-            <h1>Qual seu nome?</h1>
-            <input type="text" id="loginNameInput" />
+            <div class="logo">
+                <img src="./assets/img/logo.png" alt="logo">
+            </div>
+            <h1>Bate-papo</h1>
+            <h3>Digite seu nome de usuário</h3>
+            <input type="text" id="loginNameInput" placeholder="Digite seu nome de usuário e pressione enter"/>
         </div>
 
         <div class="page" id="chatPage">
@@ -28,7 +32,7 @@
     </div>
 
     <script src="/socket.io/socket.io.js"></script>
-    <script src="/main.js"></script>
+    <script src="./assets/js/main.js"></script>
 </body>
 
 </html>
