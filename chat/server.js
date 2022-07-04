@@ -20,7 +20,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 //     res.render('login.html')
 // })
 
-app.post('/chat-api', async (req, res) => {
+app.get('/chat-api', async (req, res) => {
     try {
         const { data } = await axios('http://localhost:3000/users')
         console.log(data)
