@@ -26,33 +26,33 @@ services:
   #   depends_on:
   #     - postgres
 
-  chat-api:
-    container_name: chat-api
-    entrypoint: sh ./.docker/entrypoint.sh
-    tty: true
-    build:
-      context: ./chat-api
-    volumes:
-      - ./chat-api:/usr/chat-api/app
-    ports:
-      - 3000:3000
-    depends_on:
-      - postgres
-    networks:
-      - chat-prj
+  # chat-api:
+  #   container_name: chat-api
+  #   entrypoint: sh ./.docker/entrypoint.sh
+  #   tty: true
+  #   build:
+  #     context: ./chat-api
+  #   volumes:
+  #     - ./chat-api:/usr/chat-api/app
+  #   ports:
+  #     - 3000:3000
+  #   depends_on:
+  #     - postgres
+  #   networks:
+  #     - chat-prj
 
-  chat:
-    container_name: chat
-    entrypoint: sh ./.docker/entrypoint.sh
-    tty: true
-    build:
-      context: ./chat
-    volumes:
-      - ./chat/:/usr/chat/app
-    ports:
-      - 8000:8000
-    networks:
-      - chat-prj
+  # chat:
+  #   container_name: chat
+  #   entrypoint: sh ./.docker/entrypoint.sh
+  #   tty: true
+  #   build:
+  #     context: ./chat
+  #   volumes:
+  #     - ./chat/:/usr/chat/app
+  #   ports:
+  #     - 8000:8000
+  #   networks:
+  #     - chat-prj
 
 networks:
   chat-prj:
